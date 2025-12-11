@@ -167,7 +167,7 @@ class CalendarAdapter(
                         text = event.title
                         setTextColor(parseColor(style.eventTextColor))
                         textSize = style.eventTextSize
-                        maxLines = 1
+                        maxLines = Int.MAX_VALUE
                         layoutParams = LinearLayout.LayoutParams(
                             0,
                             LinearLayout.LayoutParams.WRAP_CONTENT,

@@ -239,28 +239,28 @@ class MainActivity : AppCompatActivity() {
             selectionMode = SelectionMode.SINGLE
             clearAllSelections()
             updateModeButtons()
-            Toast.makeText(this, "Single Date Mode", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "Single Date Mode", Toast.LENGTH_SHORT).show()
         }
 
         btnMultiDate.setOnClickListener {
             selectionMode = SelectionMode.MULTI
             clearAllSelections()
             updateModeButtons()
-            Toast.makeText(this, "Multi Date Mode", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "Multi Date Mode", Toast.LENGTH_SHORT).show()
         }
 
         btnDateRange.setOnClickListener {
             selectionMode = SelectionMode.RANGE
             clearAllSelections()
             updateModeButtons()
-            Toast.makeText(this, "Date Range Mode", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "Date Range Mode", Toast.LENGTH_SHORT).show()
         }
 
         btnShowSelected.setOnClickListener { showSelectedDates() }
         btnClearSelection.setOnClickListener {
             clearAllSelections()
             updateCalendar()
-            Toast.makeText(this, "Selection cleared", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "Selection cleared", Toast.LENGTH_SHORT).show()
         }
 
         updateModeButtons()
@@ -400,7 +400,7 @@ class MainActivity : AppCompatActivity() {
                 else -> "Range: ${formatDate(rangeStartDate!!)} to ${formatDate(rangeEndDate!!)}"
             }
         }
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+//        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
     private fun formatDate(dateString: String): String {

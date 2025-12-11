@@ -48,10 +48,8 @@ dependencies {
     implementation(project(":smart_calender_picker"))
     // RecyclerView
     implementation("androidx.recyclerview:recyclerview:1.3.2")
-
     // CardView
     implementation("androidx.cardview:cardview:1.0.0")
-
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
