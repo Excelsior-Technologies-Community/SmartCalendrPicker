@@ -52,7 +52,8 @@ allprojects {
 Step 2: Add dependency to your app module's build.gradle:
 
 dependencies {
-	        implementation("com.github.Excelsior-Technologies-Community:SpeechToTextEditor:1.0.1")
+	     	        implementation 'com.github.Excelsior-Technologies-Community:SmartCalendrPicker:1.0.0'
+
 }
 ```
 
