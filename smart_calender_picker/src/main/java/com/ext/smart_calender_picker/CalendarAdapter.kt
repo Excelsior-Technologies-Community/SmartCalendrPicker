@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ext.smartcalendarpicker.CalendarEvent
 
@@ -18,7 +16,16 @@ class CalendarAdapter(
     private val style: CalendarStyle,
     private val onDayClick: (CalendarDay) -> Unit,
     private val onDayLongClick: (CalendarDay) -> Unit
-) : ListAdapter<CalendarDay, CalendarAdapter.DayViewHolder>(DayDiffCallback()) {
+) : RecyclerView.Adapter<CalendarAdapter.DayViewHolder>() {
+
+    private var days: List<CalendarDay> = emptyList()
+
+    fun submitList(newDays: List<CalendarDay>) {
+        days = newDays
+        notifyDataSetChanged() // Force complete refresh
+    }
+
+    override fun getItemCount(): Int = days.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DayViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -27,7 +34,7 @@ class CalendarAdapter(
     }
 
     override fun onBindViewHolder(holder: DayViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(days[position])
     }
 
     class DayViewHolder(
@@ -42,22 +49,20 @@ class CalendarAdapter(
         private val cardDay: CardView = itemView.findViewById(R.id.cardDay)
 
         fun bind(day: CalendarDay) {
-            tvDay.text = day.dayOfMonth
+            // ALWAYS clear everything first
+            layoutEventsContainer.removeAllViews()
+            layoutEventsContainer.visibility = View.GONE
 
-            // Reset default style
+            tvDay.text = day.dayOfMonth
             tvDay.setTextColor(parseColor(style.dayTextColor))
             tvDay.textSize = style.dayTextSize
             style.dayFont?.let { tvDay.typeface = it } ?: tvDay.setTypeface(null, Typeface.NORMAL)
             cardDay.setCardBackgroundColor(Color.TRANSPARENT)
 
-            // Slightly taller boxes
             val minHeightInDp = 60
             val density = itemView.context.resources.displayMetrics.density
             cardDay.minimumHeight = (minHeightInDp * density).toInt()
             cardDay.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-
-            layoutEventsContainer.removeAllViews()
-            layoutEventsContainer.visibility = View.GONE
 
             // HEADER
             if (day.isHeader) {
@@ -123,7 +128,7 @@ class CalendarAdapter(
                     text = holidayName
                     setTextColor(parseColor(style.holidayTextColor))
                     textSize = style.holidayTextSize
-                    maxLines = Integer.MAX_VALUE // allow multiple lines
+                    maxLines = Integer.MAX_VALUE
                     layoutParams = LinearLayout.LayoutParams(
                         0,
                         LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -138,9 +143,10 @@ class CalendarAdapter(
                 layoutEventsContainer.visibility = View.VISIBLE
             }
 
-            // EVENTS
+            // EVENTS - Add ALL events
             if (day.events.isNotEmpty()) {
                 layoutEventsContainer.visibility = View.VISIBLE
+
                 day.events.forEach { event: CalendarEvent ->
                     val eventLine = LinearLayout(itemView.context).apply {
                         orientation = LinearLayout.HORIZONTAL
@@ -197,14 +203,6 @@ class CalendarAdapter(
                 Color.BLACK
             }
         }
-    }
-
-    private class DayDiffCallback : DiffUtil.ItemCallback<CalendarDay>() {
-        override fun areItemsTheSame(oldItem: CalendarDay, newItem: CalendarDay): Boolean =
-            oldItem.date == newItem.date
-
-        override fun areContentsTheSame(oldItem: CalendarDay, newItem: CalendarDay): Boolean =
-            oldItem == newItem
     }
 }
 
