@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Smart Calendar Picker</string>
+    <string name="select_date">Select Date</string>
+    <string name="single_date_mode">Single Date Mode</string>
+    <string name="multi_date_mode">Multi Date Mode</string>
+    <string name="date_range_mode">Date Range Mode</string>
+    <string name="show_selected">Show Selected</string>
+    <string name="clear_selection">Clear Selection</string>
+    <string name="previous_month">Previous Month</string>
+    <string name="next_month">Next Month</string>
+    <string name="swipe_instruction">Swipe left/right for months • Swipe up/down for years</string>
+</resources>
